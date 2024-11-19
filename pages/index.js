@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { TextField, Button, Typography, Container, Alert, Paper, CircularProgress } from '@mui/material';
+import { TextField, Button, Typography, Container, Alert, Paper, CircularProgress, FormControl } from '@mui/material';
 
 const Home = () => {
   const [formData, setFormData] = useState({
@@ -107,40 +107,43 @@ const Home = () => {
         )}
 
         <form onSubmit={handleSubmit}>
-          <TextField
-            label="Name"
-            placeholder="Enter your name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            fullWidth
-            variant="outlined"
-            autoComplete="off"
-            sx={{ marginBottom: 2 }}
-          />
-          <TextField
-            label="Email Address"
-            placeholder="Enter your email"
-            name="email"
-            type="email"
-            value={formData.email}
-            onChange={handleChange}
-            fullWidth
-            variant="outlined"
-            autoComplete="off"
-            sx={{ marginBottom: 2 }}
-          />
-          <TextField
-            label="Job Title"
-            placeholder="Enter your preferred job"
-            name="jobTitle"
-            value={formData.jobTitle}
-            onChange={handleChange}
-            fullWidth
-            variant="outlined"
-            autoComplete="off"
-            sx={{ marginBottom: 2 }}
-          />
+          <FormControl fullWidth>
+
+            <TextField
+              label="Name"
+              placeholder="Enter your name"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              fullWidth
+              variant="outlined"
+              autoComplete="off"
+              sx={{ marginBottom: 2 }}
+            />
+            <TextField
+              label="Email Address"
+              placeholder="Enter your email"
+              name="email"
+              type="email"
+              value={formData.email}
+              onChange={handleChange}
+              fullWidth
+              variant="outlined"
+              autoComplete="off"
+              sx={{ marginBottom: 2 }}
+            />
+            <TextField
+              label="Job Title"
+              placeholder="Enter your preferred job"
+              name="jobTitle"
+              value={formData.jobTitle}
+              onChange={handleChange}
+              fullWidth
+              variant="outlined"
+              autoComplete="off"
+              sx={{ marginBottom: 2 }}
+            />
+          </FormControl>
 
           <Button
             type="submit"
@@ -156,22 +159,8 @@ const Home = () => {
               justifyContent: 'center',
               alignItems: 'center',
             }}
-            disabled={loading}
           >
-            {loading ? (
-              <CircularProgress
-                size={24}
-                sx={{
-                  color: {
-                    xs: 'white',
-                    sm: '#1976d2',
-                  },
-                }}
-              />
-            ) : (
-              'Submit'
-            )}
-
+            {loading ? <CircularProgress size={24} color='white' /> : 'Submit'}
           </Button>
         </form>
       </Paper>
