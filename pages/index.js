@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { TextField, Button, Typography, Container, Alert, Paper } from '@mui/material';
+import { TextField, Button, Typography, Container, Alert, Paper, CircularProgress } from '@mui/material';
 
 const Home = () => {
   const [formData, setFormData] = useState({
@@ -10,9 +10,11 @@ const Home = () => {
 
   const [alert, setAlert] = useState({
     message: '',
-    severity: '', // 'success' or 'error'
+    severity: '',
     open: false,
   });
+
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,38 +26,66 @@ const Home = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch('/api/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData),
-    });
 
-    const data = await response.json();
-    if (data.success) {
+    if (!formData.name || !formData.email || !formData.jobTitle) {
       setAlert({
-        message: 'Registration successful!',
-        severity: 'success',
-        open: true,
-      });
-
-      setFormData({
-        name: '',
-        email: '',
-        jobTitle: '',
-      });
-    } else {
-      setAlert({
-        message: `Error: ${data.message}`,
+        message: 'All fields are required!',
         severity: 'error',
         open: true,
       });
+
+      setTimeout(() => {
+        setAlert({ ...alert, open: false });
+      }, 3000);
+
+      return;
     }
+
+    setLoading(true);
+
+    try {
+      const response = await fetch('/api/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setAlert({
+          message: 'Registration successful!',
+          severity: 'success',
+          open: true,
+        });
+
+        setFormData({
+          name: '',
+          email: '',
+          jobTitle: '',
+        });
+      } else {
+        setAlert({
+          message: `Error: ${data.message}`,
+          severity: 'error',
+          open: true,
+        });
+      }
+    } catch (error) {
+      setAlert({
+        message: 'Registration failed. Please try again later.',
+        severity: 'error',
+        open: true,
+      });
+    } finally {
+      setLoading(false);
+    }
+
     setTimeout(() => {
       setAlert({ ...alert, open: false });
-    }, 5000); // 5000ms = 5 seconds
-
+    }, 5000);
   };
 
   return (
@@ -84,7 +114,6 @@ const Home = () => {
             value={formData.name}
             onChange={handleChange}
             fullWidth
-            required
             variant="outlined"
             autoComplete="off"
             sx={{ marginBottom: 2 }}
@@ -97,7 +126,6 @@ const Home = () => {
             value={formData.email}
             onChange={handleChange}
             fullWidth
-            required
             variant="outlined"
             autoComplete="off"
             sx={{ marginBottom: 2 }}
@@ -109,7 +137,6 @@ const Home = () => {
             value={formData.jobTitle}
             onChange={handleChange}
             fullWidth
-            required
             variant="outlined"
             autoComplete="off"
             sx={{ marginBottom: 2 }}
@@ -125,9 +152,13 @@ const Home = () => {
               '&:hover': {
                 backgroundColor: '#1565c0',
               },
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
             }}
+            disabled={loading}
           >
-            Submit
+            {loading ? <CircularProgress size={24} /> : 'Submit'}
           </Button>
         </form>
       </Paper>
