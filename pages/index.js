@@ -39,6 +39,12 @@ const Home = () => {
         severity: 'success',
         open: true,
       });
+
+      setFormData({
+        name: '',
+        email: '',
+        jobTitle: '',
+      });
     } else {
       setAlert({
         message: `Error: ${data.message}`,
@@ -80,6 +86,7 @@ const Home = () => {
             fullWidth
             required
             variant="outlined"
+            autoComplete="off"
             sx={{ marginBottom: 2 }}
           />
           <TextField
@@ -92,6 +99,7 @@ const Home = () => {
             fullWidth
             required
             variant="outlined"
+            autoComplete="off"
             sx={{ marginBottom: 2 }}
           />
           <TextField
@@ -103,6 +111,7 @@ const Home = () => {
             fullWidth
             required
             variant="outlined"
+            autoComplete="off"
             sx={{ marginBottom: 2 }}
           />
 
