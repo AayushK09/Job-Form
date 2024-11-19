@@ -158,7 +158,20 @@ const Home = () => {
             }}
             disabled={loading}
           >
-            {loading ? <CircularProgress size={24} /> : 'Submit'}
+            {loading ? (
+              <CircularProgress
+                size={24}
+                sx={{
+                  color: {
+                    xs: 'white',
+                    sm: '#1976d2',
+                  },
+                }}
+              />
+            ) : (
+              'Submit'
+            )}
+
           </Button>
         </form>
       </Paper>
