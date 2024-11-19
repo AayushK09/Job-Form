@@ -107,43 +107,40 @@ const Home = () => {
         )}
 
         <form onSubmit={handleSubmit}>
-          <FormControl fullWidth>
-
-            <TextField
-              label="Name"
-              placeholder="Enter your name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              fullWidth
-              variant="outlined"
-              autoComplete="off"
-              sx={{ marginBottom: 2 }}
-            />
-            <TextField
-              label="Email Address"
-              placeholder="Enter your email"
-              name="email"
-              type="email"
-              value={formData.email}
-              onChange={handleChange}
-              fullWidth
-              variant="outlined"
-              autoComplete="off"
-              sx={{ marginBottom: 2 }}
-            />
-            <TextField
-              label="Job Title"
-              placeholder="Enter your preferred job"
-              name="jobTitle"
-              value={formData.jobTitle}
-              onChange={handleChange}
-              fullWidth
-              variant="outlined"
-              autoComplete="off"
-              sx={{ marginBottom: 2 }}
-            />
-          </FormControl>
+          <TextField
+            label="Name"
+            placeholder="Enter your name"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            fullWidth
+            variant="outlined"
+            autoComplete="off"
+            sx={{ marginBottom: 2 }}
+          />
+          <TextField
+            label="Email Address"
+            placeholder="Enter your email"
+            name="email"
+            type="email"
+            value={formData.email}
+            onChange={handleChange}
+            fullWidth
+            variant="outlined"
+            autoComplete="off"
+            sx={{ marginBottom: 2 }}
+          />
+          <TextField
+            label="Job Title"
+            placeholder="Enter your preferred job"
+            name="jobTitle"
+            value={formData.jobTitle}
+            onChange={handleChange}
+            fullWidth
+            variant="outlined"
+            autoComplete="off"
+            sx={{ marginBottom: 2 }}
+          />
 
           <Button
             type="submit"
